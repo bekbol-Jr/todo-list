@@ -26,8 +26,13 @@ const TodoList = ({el, deleteTodo, changeStatus, updateTodo}) => {
                                               checked={el.isDone}
                                               type="checkbox"/>
                                          {
-                                             isOpen ? <input className="text-black p-1 mx-2 bg-yellow-100"
+                                             isOpen ? <input className="input-save text-black p-1 mx-2 bg-yellow-100"
                                                              onChange={saveChange}
+                                                             onKeyDown={(event) => {
+                                                                 if (event.key === "Enter"){
+                                                                     closeInput(title, el.id)
+                                                                 }
+                                                             }}
                                                              type="text"
                                                              value={title}/> :   <span
                                                  style={{

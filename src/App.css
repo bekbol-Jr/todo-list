@@ -5,3 +5,8 @@
 input, button{
   outline: none;
 }
+
+.input-save{
+  background: #817a7a;
+  border-radius: 5px;
+}

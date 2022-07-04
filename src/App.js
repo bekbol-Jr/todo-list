@@ -14,36 +14,51 @@ function App() {
     }
 
     const addTodo = () => {
-        const newTodo ={
-            id: todo.length? todo[todo.length -1].id +1 : 1,
-            name: title,
-            isDone:false
-        }
+        // const newTodo ={
+        //     id: todo.length? todo[todo.length -1].id +1 : 1,
+        //     name: title,
+        //     isDone:false
+        // }
 
         // setTodo((todo) => [...todo, newTodo])
 
-        axios.post(`https://62c17235eff7f7856f0ec450.mockapi.io/frontend/todo`, {
-            name: title,
-        })
-            .then(({data}) => {
-                console.log(data)
-            })
+      if (title !== ""){
+          axios.post("https://62c17235eff7f7856f0ec450.mockapi.io/frontend/todo", {
+              name: title,
+          }).then(({data}) => {
+              setTodo([...todo, data])
+          })
+      }else {
+          alert("Заполните строку!")
+      }
+
     }
 
     const deleteTodo = (id) => {
         setTodo(state => state.filter(el => el.id !== id ))
         axios.delete(`https://62c17235eff7f7856f0ec450.mockapi.io/frontend/todo/${id}`)
             .then(({data}) => {
-                setTodo([...todo, data])
+                console.log(data)
             })
     }
 
     const changeStatus = (id) => {
-        setTodo(state => state.map(el => el.id === id ? {...el, isDone:  !el.isDone} : el))
+        const element = todo.find(el => el.id === id)
+        axios.put(`https://62c17235eff7f7856f0ec450.mockapi.io/frontend/todo/${id}`, {
+            isDone: !element.isDone
+        }).then(({data}) => {
+            setTodo(state => state.map(el => el.id === id ? data : el))
+        })
+
     }
 
     const updateTodo = (title, id) => {
-        setTodo(state => state.map(el => el.id === id ? {...el, name: title} : el))
+        // setTodo(state => state.map(el => el.id === id ? {...el, name: title} : el))
+        axios.put(`https://62c17235eff7f7856f0ec450.mockapi.io/frontend/todo/${id}`, {
+            name: title
+        }).then(({data}) => {
+            setTodo(state => state.map(el => el.id === id ? data : el))
+            })
     }
 
     const getTodo = async () => {
@@ -70,6 +85,11 @@ function App() {
                       <div className="flex">
                           <input
                               onChange={handleChange}
+                              onKeyDown={(event) => {
+                                  if (event.key === "Enter"){
+                                      addTodo()
+                                  }
+                              }}
                               id="default-search"
                                  className="w-full mr-2 p-3 text-sm text-white bg-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                  placeholder="type todo name" required/>
