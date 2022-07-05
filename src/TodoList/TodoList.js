@@ -23,7 +23,7 @@ const TodoList = ({el, deleteTodo, changeStatus, updateTodo}) => {
                                           <input
                                               onChange={() => changeStatus(el.id)}
 
-                                              checked={el.isDone}
+                                              defaultChecked={el.isDone}
                                               type="checkbox"/>
                                          {
                                              isOpen ? <input className="input-save text-black p-1 mx-2 bg-yellow-100"

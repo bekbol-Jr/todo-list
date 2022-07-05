@@ -71,7 +71,7 @@ function App() {
 
     useEffect(() => {
        getTodo()
-    })
+    },[])
 
 
   return (
@@ -91,7 +91,9 @@ function App() {
                                   }
                               }}
                               id="default-search"
-                                 className="w-full mr-2 p-3 text-sm text-white bg-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                 className="w-full mr-2 p-3 text-sm text-white bg-gray-700 rounded-lg border border-gray-300 focus:ring-blue-500
+                                  focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                                  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                  placeholder="type todo name" required/>
                           <button
                               onClick={addTodo}
